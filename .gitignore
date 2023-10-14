@@ -5,4 +5,4 @@
 __pycache__/
 
 # Do not track any json file
-*.json
+file.json

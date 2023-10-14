@@ -3,6 +3,7 @@
 import json
 import datetime
 import os
+from models.base_model import BaseModel
 
 
 class FileStorage:
@@ -21,21 +22,25 @@ class FileStorage:
 
     def save(self):
         """Serializes __objects to JSON FILE to __file_path(file.json)"""
+        Ndict = {k: v.to_dict() for k, v in FileStorage.__objects.items()}
         with open(FileStorage.__file_path, "w", encoding="utf-8") as op_file:
-            Ndict = {k: v.to_dict() for k, v in FileStorage.__objects.items()}
             json.dump(Ndict, op_file)
 
     def reload(self):
         """Deserializes JSON FILE to __objects(dict) if path exists"""
         if not os.path.isfile(FileStorage.__file_path):
             return
-        with open(File.__file_path, "r", encoding="utf-8") as op_file:
-            convt_dict = json.load(op_file)
-        FileStorage.__objects = convt_dict
 
-    def classes(self):
-        """Returns all Implemented classes"""
-        from models.base_model import BaseModel
+        with open(FileStorage.__file_path, 'r') as file:
+            data = json.load(file)
+            for key, value in data.items():
+                class_name = key.split('.')[0]
+                cls = eval(class_name)
+                FileStorage.__objects[key] = cls(**value)
 
-        classes = {"BaseModel": BaseModel}
-        return classes
+    # def classes(self):
+    #     """Returns all Implemented classes"""
+    #     from models.base_model import BaseModel
+
+    #     classes = {"BaseModel": BaseModel}
+    #     return classes
