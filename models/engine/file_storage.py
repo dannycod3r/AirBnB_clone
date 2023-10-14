@@ -32,3 +32,10 @@ class FileStorage:
         with open(File.__file_path, "r", encoding="utf-8") as op_file:
             convt_dict = json.load(op_file)
         FileStorage.__objects = convt_dict
+
+    def classes(self):
+        """Returns all Implemented classes"""
+        from models.base_model import BaseModel
+
+        classes = {"BaseModel": BaseModel}
+        return classes
