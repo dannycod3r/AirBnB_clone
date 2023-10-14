@@ -3,3 +3,6 @@
 
 # Do not track __pycache__/ folder
 __pycache__/
+
+# Do not track any json file
+*.json
