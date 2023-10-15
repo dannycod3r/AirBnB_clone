@@ -47,7 +47,7 @@ class FileStorage:
     def classes(self):
         """return a list of class names"""
         return {
-            'BaseModel': BaseModel, 
+            'BaseModel': BaseModel,
             'User': User,
             'Amenity': Amenity,
             'City': City,
